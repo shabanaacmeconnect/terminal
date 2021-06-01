@@ -1,0 +1,39 @@
+version: '3'
+services:
+  web:
+    image: "node:14"
+    entrypoint:
+      - "sh"
+      - "-c"
+      - "npm install && ./node_modules/.bin/nodemon server.js"
+    working_dir: "/usr/src/app"
+    ports:
+      - "9016:9016"    
+    volumes:
+      - ".:/usr/src/app"
+      # Don't sync the node_modules directory back to the client.
+      - "/usr/src/app/node_modules"
+  #   links:
+  #     - puppeteer
+  # puppeteer:
+  #   image: minidocks/puppeteer
+  #   volumes:
+  #     - .:/usr/src/app
+  #   links:
+  #     - chromium
+  #   environment:
+  #     PUPPETEER_EXECUTABLE_PATH: /bin/chromium
+  #     PUPPETEER_ARG_REMOTE_DEBUGGING_ADDRESS: chromium
+  #     PUPPETEER_ARG_REMOTE_DEBUGGING_PORT: 0
+  #     ALIAS_CHROMIUM: ssh chromium chromium
+  #   working_dir: /usr/src/app
+
+  # chromium:
+  #   image: minidocks/chromium
+  #   volumes:
+  #     - .:/usr/src/app
+  #   cap_add:
+  #     - SYS_ADMIN
+  #   working_dir: /usr/src/app
+  #   command: sshd
+  
